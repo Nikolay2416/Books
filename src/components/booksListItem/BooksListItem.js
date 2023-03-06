@@ -1,4 +1,4 @@
-const BooksListItem = ({name, description, onDelete, img, author, evaluation}) => {
+const BooksListItem = ({name, description, onDelete, img, author, element}) => {
 
     return (
         <li 
@@ -12,7 +12,7 @@ const BooksListItem = ({name, description, onDelete, img, author, evaluation}) =
                 <h3 className="card-title">{name}</h3>
                 <h3 className="card-title">{author}</h3>
                 <p className="card-text">{description}</p>
-                <p className="card-title">Оценка произведения: {evaluation}</p>
+                <p className="card-title">Оценка произведения: {element}</p>
             </div>
             <span onClick={onDelete} 
                 className="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-light">

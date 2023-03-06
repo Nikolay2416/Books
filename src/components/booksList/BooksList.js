@@ -1,5 +1,5 @@
 import {useHttp} from '../../hooks/http.hook'; 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 import { createSelector } from '@reduxjs/toolkit';
@@ -13,15 +13,25 @@ import './booksList.scss';
 
 const BooksList = () => {
 
+    const [value, setValue] = useState('');
+
     const filteredBooksSelector = createSelector(
         (state) => state.filters.activeFilter,
         (state) => state.books.books,
         (filter, books) => {
-            if (filter === 'all') {
-                return books;
+
+            let meaning;
+
+            if (filter !== 'all' && (value !== '' || value === '')) {
+                meaning = books.filter(item => item.element === filter && item.name.toLowerCase().includes(value.toLowerCase()));
+            } else if (filter === 'all') {
+                meaning = books.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
             } else {
-                return books.filter(item => item.element === filter);
+                meaning = books;
             }
+
+            console.log(meaning); 
+            return meaning;
         }
     );
 
@@ -50,7 +60,7 @@ const BooksList = () => {
     }
 
     const renderBooksList = (arr) => {
-        console.log(arr)
+
         if (arr.length === 0) {
             return (
                 <CSSTransition
@@ -75,7 +85,16 @@ const BooksList = () => {
 
     const elements = renderBooksList(filteredBooks);
     return (
+        
         <TransitionGroup component="ul">
+            <form className="d-flex mt-0 mb-4">
+                <div className="fs-4 p-1">Поиск по названию</div>
+                <input
+                class="input" 
+                type="text"
+                onChange={(event) => setValue(event.target.value)}/>
+            </form>
+                
             {elements}
         </TransitionGroup>
     )

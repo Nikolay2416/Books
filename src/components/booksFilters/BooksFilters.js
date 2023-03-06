@@ -47,9 +47,9 @@ const BooksFilters = () => {
     const elements = renderFilters(filters);
 
     return (
-        <div className="card shadow-lg mt-4">
+        <div className="card shadow-lg mt-0 mb-4">
             <div className="card-body">
-                <p className="card-text">Отфильтруйте по жанрам</p>
+                <p className="card-text">Отфильтруйте по оценкам</p>
                 <div className="btn-group">
                     {elements}
                 </div>

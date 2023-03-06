@@ -18,10 +18,10 @@ const booksSlice = createSlice({
     name: 'books',
     initialState,
     reducers: {
-        booksCreated: (state, action) => {
+        bookCreated: (state, action) => {
             state.books.push(action.payload);
         },
-        booksDeleted: (state, action) => {
+        bookDeleted: (state, action) => {
             state.books = state.books.filter(item => item.id !== action.payload);
         }
     },
